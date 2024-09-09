@@ -9,14 +9,23 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+
+import os
 import firebase_admin
 from firebase_admin import credentials
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+#This is dynamically handling the location of the service key.
 BASE_DIR = Path(__file__).resolve().parent.parent
-cred = credentials.Certificate("path/to/serviceAccountKey.json")
+
+cred_path = Path(BASE_DIR)/'home_decor_backend' / 'serviceKey' / 'nook-aa562-firebase-adminsdk-jbp1r-e8a61397d0.json'
+print(f"Looking for service account key at: {cred_path}")  # Debugging line
+cred = credentials.Certificate(str(cred_path))
 firebase_admin.initialize_app(cred)
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -39,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -77,10 +87,17 @@ WSGI_APPLICATION = 'home_decor_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'nookDB',
+        'USER': 'root',
+        'PASSWORD': 'glamrock',
+        'HOST': 'localhost',
+        'PORT': '3306',  # default MySQL port
     }
 }
+
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 
 # Password validation
