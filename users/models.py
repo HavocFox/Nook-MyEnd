@@ -4,14 +4,16 @@ from django.conf import settings
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email, username, password=None, **extra_fields):
         """
-        Creates and saves a user with the given email and password.
+        Creates and saves a user with the given email, username, and password.
         """
         if not email:
             raise ValueError('The Email field must be set')
+        if not username:
+            raise ValueError('The Username field must be set')
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.model(email=email, username=username, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -33,13 +35,14 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
+    username = models.CharField(max_length=150, unique=True)  # Add username field
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []  # No required fields apart from email
+    REQUIRED_FIELDS = ['username']  # Add 'username' to REQUIRED_FIELDS
 
     def __str__(self):
         return self.email

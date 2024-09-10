@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    width: 100vw;
+    background-color: #ffffff; /* Белый фон за пределами контейнера */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.complete-signup-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 353px; /* Ширина контейнера */
+    margin-top: 0px; /* Подняли контейнер выше */
+    min-height: 80vh;
+    padding: 40px;
+    background-image: url('../assets/RegisterBackground1.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.complete-signup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(244, 233, 227, 0.8); /* Цвет слоя */
+    border-radius: 12px;
+    z-index: 1;
+}
+
+.complete-signup-content {
+    position: relative;
+    z-index: 2;
+}
+
+.register-logo {
+    width: 250px;
+    height: 100px; /* Немного уменьшили высоту логотипа */
+    background-image: url('../assets/NookLogo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto;
+    margin-bottom: 24px; /* Добавили больше пространства под логотипом */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-container {
+    width: 100%;
+    margin-bottom: 24px; /* Вертикальный отступ между полями */
+    text-align: left;
+}
+
+.input-container label {
+    color: #00593F; /* Темно-зеленый цвет для заголовков */
+    font-size: 16px;
+    font-weight: 400; /* Шрифт тоньше */
+    margin-bottom: 8px; /* Отступ между заголовком и полем ввода */
+    display: block;
+}
+
+.input-container input {
+    width: 353px; /* Ширина полей ввода */
+    height: 60px; /* Высота поля */
+    padding: 12px;
+    border-radius: 0; /* Убираем скругление углов */
+    border: 2px solid #ADA9A9; /* Цвет границы */
+    font-size: 16px;
+    font-weight: 600; /* Полужирный шрифт для ввода текста */
+    box-sizing: border-box;
+    box-shadow: none; /* Убираем тень */
+    color: #00593F; /* Цвет текста при заполнении */
+}
+
+.create-account-button {
+    width: 353px; /* Ширина кнопки */
+    height: 60px;
+    border-radius: 30px; /* Делаем кнопку круглой */
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 24px;
+    border: 2px solid #2f4f4f;
+    background-color: #b1f138;
+    color: #092b1b;
+}
+
+.create-account-button:hover {
+    background-color: #9ccd4a;
+    transform: scale(1.05);
+}

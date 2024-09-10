@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from firebase_admin import auth
+from firebase_admin import auth, exceptions
 from .middleware import firebase_token_required
 import json
 from django.db import transaction
@@ -26,7 +26,7 @@ def login(request):
             # Verify password using your chosen method (custom or Firebase)
             # If authentication is successful
             return JsonResponse({"status": "success", "uid": user.uid})
-        except auth.AuthError as e:
+        except exceptions.FirebaseError as e:
             return JsonResponse({"status": "error", "message": str(e)}, status=400)
         except Exception as e:
             return JsonResponse({"status": "error", "message": "Invalid login credentials."}, status=400)
@@ -40,14 +40,22 @@ def signup(request):
                 email = data.get('email')
                 password = data.get('password')
 
+                print(f"Received signup request with email: {email}")  # Debugging line
+
                 # Create a new user in Firebase
                 user = auth.create_user(
                     email=email,
                     password=password
                 )
 
+                print(f"User created with UID: {user.uid}")  # Debugging line
+
             return JsonResponse({"status": "success", "uid": user.uid})
+        except exceptions.FirebaseError as e:
+            print(f"Firebase AuthError: {str(e)}")  # Debugging line
+            return JsonResponse({'error': 'Firebase authentication error.'}, status=400)
         except Exception as e:
+            print(f"Unexpected error during signup: {str(e)}")  # Debugging line
             return JsonResponse({'error': str(e)}, status=500)
 
 User = get_user_model()

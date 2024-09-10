@@ -4,7 +4,7 @@ from .models import CustomUser
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ('email',)  # Only the email field is needed
+        fields = ('email', 'username')  # Only the email field is needed
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
