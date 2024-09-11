@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import { Auth0Provider } from '@auth0/auth0-react';
 import MainFeed from './views/MainFeed';
 import ContentDetail from './views/ContentDetail';
@@ -25,7 +25,7 @@ const App: React.FC = () => {
         redirect_uri: window.location.origin,
       }}
     >
-      <Router basename="/home-decor-app">
+      <Router basename="/Nook-MyEnd">
         {/* Added basename */}
         <div className="app-container">
           <main style={{ marginTop: '10px' }}>

@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-import axios from 'axios';
-import '../css/CompleteSignUp.css';
+import axios from 'axios'; // For making API requests to your backend
+import '../css/CompleteSignUp.css'; // Import your custom CSS file
 
 const CompleteSignUp: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const email = location.state?.email || ''; 
-  const [username, setUsername] = useState<string>(''); // Добавили state для username
+  const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState<string>(''); 
   const [loading, setLoading] = useState<boolean>(false);
 
   if (!email) {
-    navigate('/register');
+    navigate('/register'); // Redirect to the registration page if email is not provided
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(''); 
+    setError(''); // Clear any previous errors
     if (password !== confirmPassword) {
       setError('Passwords do not match!');
       return;
@@ -28,13 +27,14 @@ const CompleteSignUp: React.FC = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:8000/signup/', {
+      // Make an API request to your backend to create a user
+      const response = await axios.post('http://localhost:8000/signup', {
         email,
         username,
         password,
       });
       console.log('User created with email:', email);
-      navigate('/main-feed');
+      navigate('/main-feed'); // Redirect to the main feed upon successful signup
     } catch (err: any) {
       console.error('Registration failed:', err);
       setError('Failed to create account');
@@ -51,10 +51,10 @@ const CompleteSignUp: React.FC = () => {
         {error && <p className="error-message">{error}</p>}
         <div className="input-container">
           <label>Email</label>
-          <input type="email" value={email} />
+          <input type="email" value={email} readOnly />
         </div>
         <div className="input-container">
-          <label>Username</label> {/* Поле Username */}
+          <label>Username</label> 
           <input
             type="text"
             placeholder="Enter Username"

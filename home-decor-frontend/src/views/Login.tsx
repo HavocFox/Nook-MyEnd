@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from 'firebase/auth'; // Import Firebase authentication methods
-import { auth } from '../../firebaseConfig'; // Adjust the path to your firebase config file
+import { 
+  signInWithEmailAndPassword, 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  sendPasswordResetEmail 
+} from 'firebase/auth'; // Import Firebase authentication methods
+import { auth } from '../../firebaseConfig'; // Import the Firebase configuration
 import '../css/Login.css'; // Import your custom CSS file
 
 const Login: React.FC = () => {
