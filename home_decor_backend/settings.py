@@ -20,7 +20,7 @@ from pathlib import Path
 #This is dynamically handling the location of the service key.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-cred_path = Path(BASE_DIR)/'home_decor_backend' / 'serviceKey' / 'nook-aa562-firebase-adminsdk-jbp1r-cbe0625790.json'
+cred_path = Path(BASE_DIR)/'home_decor_backend' / 'serviceKey' / 'nook-aa562-firebase-adminsdk-jbp1r-2b9c16de71.json'
 print(f"Looking for service account key at: {cred_path}")  # Debugging line
 cred = credentials.Certificate(str(cred_path))
 firebase_admin.initialize_app(cred)
@@ -34,9 +34,9 @@ firebase_admin.initialize_app(cred)
 SECRET_KEY = 'django-insecure-4ew9z7a7t!q0-oqy-j!$ct@m0sq(sy5)!9jay2191qs_et$c*e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['104.251.240.42']
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',

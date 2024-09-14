@@ -18,9 +18,9 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None, **extra_fields):
+    def create_superuser(self, email, username, password=None, **extra_fields):
         """
-        Creates and saves a superuser with the given email and password.
+        Creates and saves a superuser with the given email, username, and password.
         """
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -30,7 +30,9 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self.create_user(email, password, **extra_fields)
+        # Correctly pass 'username' to create_user method
+        return self.create_user(email=email, username=username, password=password, **extra_fields)
+
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -46,55 +48,38 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-    
 
 class Post(models.Model):
-    """
-    Model representing a post related to home decor ideas and inspirations.
-    """
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
     title = models.CharField(max_length=255)
     content = models.TextField()
-    image = models.ImageField(upload_to='posts/', blank=True, null=True)  # Optional image field
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
 
 class Like(models.Model):
-    """
-    Model representing a 'like' interaction on a post by a user.
-    """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='likes')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='likes', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.user.email} liked {self.post.title}"
 
 
 class Comment(models.Model):
-    """
-    Model representing a comment made by a user on a post.
-    """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    text = models.TextField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Comment by {self.user.email} on {self.post.title}"
+
+class Share(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='shares', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
-class SavedPost(models.Model):
-    """
-    Model representing a post saved by a user for later reference.
-    """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='saved_posts')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='saved_by')
-    saved_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.user.email} saved {self.post.title}"
+class Save(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='saves', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)

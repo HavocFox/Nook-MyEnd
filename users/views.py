@@ -1,12 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from firebase_admin import auth, exceptions
 from .middleware import firebase_token_required
 import json
 from django.db import transaction
 from django.contrib.auth import get_user_model
+from .models import Post, Like, Comment, Share, Save
 
 from django.views.decorators.csrf import csrf_exempt   # probably remember to remove this
+
+User = get_user_model()
 
 @firebase_token_required  #ignore rn
 def some_secure_view(request):
@@ -72,3 +75,95 @@ def get_users(request):
             return JsonResponse({'error': str(e)}, status=500)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=400)
+    
+@csrf_exempt
+def like_post(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            post_id = data.get('post_id')
+            user_id = data.get('user_id')
+
+            user = get_object_or_404(User, id=user_id)
+            post = get_object_or_404(Post, id=post_id)
+
+            Like.objects.create(user=user, post=post)
+
+            return JsonResponse({'status': 'success', 'message': 'Post liked successfully!'}, status=200)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+@csrf_exempt
+def comment_post(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            post_id = data.get('post_id')
+            user_id = data.get('user_id')
+            content = data.get('content')
+
+            user = get_object_or_404(User, id=user_id)
+            post = get_object_or_404(Post, id=post_id)
+
+            Comment.objects.create(user=user, post=post, content=content)
+
+            return JsonResponse({'status': 'success', 'message': 'Comment added successfully!'}, status=200)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+@csrf_exempt
+def share_post(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            post_id = data.get('post_id')
+            user_id = data.get('user_id')
+
+            user = get_object_or_404(User, id=user_id)
+            post = get_object_or_404(Post, id=post_id)
+
+            Share.objects.create(user=user, post=post)
+
+            return JsonResponse({'status': 'success', 'message': 'Post shared successfully!'}, status=200)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+@csrf_exempt
+def save_post(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            post_id = data.get('post_id')
+            user_id = data.get('user_id')
+
+            user = get_object_or_404(User, id=user_id)
+            post = get_object_or_404(Post, id=post_id)
+
+            Save.objects.create(user=user, post=post)
+
+            return JsonResponse({'status': 'success', 'message': 'Post saved successfully!'}, status=200)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+        
+@csrf_exempt
+def create_post(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            title = data.get('title')
+            content = data.get('content')
+            user_id = data.get('user_id')
+
+            # Get the user creating the post
+            user = get_object_or_404(User, id=user_id)
+
+            # Create a new post
+            post = Post.objects.create(title=title, content=content, author=user)
+
+            return JsonResponse({'status': 'success', 'message': 'Post created successfully!', 'post_id': post.id}, status=201)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=405)
