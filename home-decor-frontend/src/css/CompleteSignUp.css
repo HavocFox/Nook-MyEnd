@@ -5,7 +5,7 @@ body {
     font-family: 'Arial', sans-serif;
     min-height: 100vh;
     width: 100vw;
-    background-color: #ffffff; /* Белый фон за пределами контейнера */
+    background-color: #ffffff; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,8 +17,8 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 353px; /* Ширина контейнера */
-    margin-top: 0px; /* Подняли контейнер выше */
+    max-width: 353px; 
+    margin-top: 0px; 
     min-height: 80vh;
     padding: 40px;
     background-image: url('../assets/RegisterBackground1.jpg');
@@ -47,13 +47,13 @@ body {
 
 .register-logo {
     width: 250px;
-    height: 100px; /* Немного уменьшили высоту логотипа */
+    height: 100px; 
     background-image: url('../assets/NookLogo.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     margin: 0 auto;
-    margin-bottom: 24px; /* Добавили больше пространства под логотипом */
+    margin-bottom: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,35 +61,35 @@ body {
 
 .input-container {
     width: 100%;
-    margin-bottom: 24px; /* Вертикальный отступ между полями */
+    margin-bottom: 24px; 
     text-align: left;
 }
 
 .input-container label {
-    color: #00593F; /* Темно-зеленый цвет для заголовков */
+    color: #00593F; 
     font-size: 16px;
-    font-weight: 400; /* Шрифт тоньше */
-    margin-bottom: 8px; /* Отступ между заголовком и полем ввода */
+    font-weight: 400; 
+    margin-bottom: 8px;
     display: block;
 }
 
 .input-container input {
-    width: 353px; /* Ширина полей ввода */
-    height: 60px; /* Высота поля */
+    width: 353px; 
+    height: 60px; 
     padding: 12px;
-    border-radius: 0; /* Убираем скругление углов */
-    border: 2px solid #ADA9A9; /* Цвет границы */
+    border-radius: 0; 
+    border: 2px solid #ADA9A9; 
     font-size: 16px;
-    font-weight: 600; /* Полужирный шрифт для ввода текста */
+    font-weight: 600; 
     box-sizing: border-box;
-    box-shadow: none; /* Убираем тень */
-    color: #00593F; /* Цвет текста при заполнении */
+    box-shadow: none;
+    color: #00593F;
 }
 
 .create-account-button {
-    width: 353px; /* Ширина кнопки */
+    width: 353px; 
     height: 60px;
-    border-radius: 30px; /* Делаем кнопку круглой */
+    border-radius: 30px;
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
