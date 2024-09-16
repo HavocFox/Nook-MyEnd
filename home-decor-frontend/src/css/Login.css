@@ -5,7 +5,7 @@
     font-family: 'Nunito', sans-serif;
     min-height: 100vh;
     width: 100vw;
-    background-color: #ffffff !important; /* Белый фон за пределами контейнера */
+    background-color: #ffffff !important; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,13 +16,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 393px; /* Ширина контейнера */
-    min-height: 852px; /* Высота контейнера */
+    width: 393px; 
+    min-height: 852px;
     padding: 20px;
-    background-image: url('../assets/Background.jpg'); /* Задний фон */
+    background-image: url('../assets/Background.jpg'); 
     background-size: cover;
-    background-position: calc(100% - 565px); /* Положение фона */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Тень */
+    background-position: calc(100% - 565px); 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
@@ -32,7 +32,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(243, 235, 231, 0.55); /* Увеличили прозрачность */
+    background-color: rgba(243, 235, 231, 0.55); 
     z-index: 1;
 }
 
@@ -55,45 +55,45 @@
 
 .login-input-container {
     width: 100%;
-    margin-bottom: 40px; /* Отступ между полями */
+    margin-bottom: 40px; 
     text-align: left;
 }
 
 .login-input-container label {
     display: block;
     font-size: 16px;
-    font-weight: 600; /* Полужирный шрифт */
+    font-weight: 600; 
     color: #00593F;
     margin-bottom: 8px;
 }
 
 .login-input-container input {
     width: 100%;
-    height: 60px; /* Высота полей ввода */
+    height: 60px; 
     padding-left: 12px;
     font-size: 16px;
     font-weight: 500;
     color: #00593F;
     border: 2px solid #294a4a;
-    border-radius: 0; /* Прямоугольные углы */
+    border-radius: 0; 
     box-sizing: border-box;
 }
 
 .login-button,
 .google-login-button,
 .signup-button {
-    width: 100%; /* Ширина кнопок такая же, как у полей ввода */
-    height: 60px; /* Высота кнопок */
+    width: 100%; 
+    height: 60px; 
     margin-bottom: 40px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 30px; /* Скругленные углы у кнопок */
+    border-radius: 30px; 
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .login-button {
-    background-color: #F5A1C9; /* Цвет кнопки "Login" */
+    background-color: #F5A1C9; 
     border: 2px solid #294a4a;
     color: #294a4a;
 }
@@ -138,7 +138,7 @@
 }
 
 .signup-button {
-    background-color: #b1f138; /* Цвет кнопки "Sign Up" */
+    background-color: #b1f138; 
     border: 2px solid #2f4f4f;
     color: #2f4f4f;
 }
